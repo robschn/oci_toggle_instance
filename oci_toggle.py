@@ -10,4 +10,7 @@ config = {
     "region": creds.region
 }
 
-oci.config.validate_config(config)
+identity = oci.identity.IdentityClient(config)
+
+user = identity.get_user(config["user"]).data
+print(user)
