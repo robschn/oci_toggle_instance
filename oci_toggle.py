@@ -17,8 +17,8 @@ instance_list = base_compute.list_instances(creds.compartment_id).data
 
 
 for instance in instance_list:
+    # filter out any non Test Server types
     try:
-        # filter out any non Test Server types
         if instance.freeform_tags['Test'] == 'Shutdown':
             print(instance.display_name, instance.freeform_tags)
             # send command passed through
@@ -27,10 +27,3 @@ for instance in instance_list:
 
     except KeyError:
         pass
-
-# get instance_id of all instances with "Nightly/Weekend Shutdown" tag
-
-# shutdown the instance state
-
-
-# if RUNNING in lifecycle_state
