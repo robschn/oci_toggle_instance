@@ -1,12 +1,10 @@
 import oci
-import json
 import creds
 
 config = oci.config.from_file()
 
-# set compute and region
-base_compute = oci.core.compute_client.ComputeClient(config)
-base_compute.base_client.set_region(config["region"])
+# set compute resource
+base_compute = oci.core.ComputeClient(config)
 
 # get instance list
 instance_list = base_compute.list_instances(creds.compartment_id).data
