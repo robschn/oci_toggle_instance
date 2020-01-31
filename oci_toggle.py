@@ -13,7 +13,7 @@ config = oci.config.from_file()
 base_compute = oci.core.ComputeClient(config)
 
 # get instance list
-instance_list = base_compute.list_instances(creds.compartment_id).data
+instance_list = base_compute.list_instances(config["compartment_id"]).data
 
 
 for instance in instance_list:
