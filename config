@@ -1,8 +1,0 @@
-[DEFAULT]
-user=ocid1.user.oc1..
-fingerprint=00:00:..00:00
-key_file=~/.oci/oci_api_key.pem
-pass_phrase=password
-tenancy=ocid1.tenancy.oc1..
-region=us-ashburn-1
-compartment_id=ocid1.compartment.oc1..

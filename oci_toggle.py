@@ -7,7 +7,7 @@ import creds
 #     print("No instance action provided. Please add 'start' or 'stop' after the script.")
 #     exit()
 
-config = oci.config.from_file()
+config = oci.config.from_file(file_location= "config")
 
 # set compute resource
 base_compute = oci.core.ComputeClient(config)

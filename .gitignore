@@ -5,3 +5,4 @@ oci_api_key_public.pem
 oci_api_key.pem
 __pycache__/creds.cpython-38.pyc
 output.txt
+oci_config
