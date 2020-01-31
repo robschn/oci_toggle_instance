@@ -1,4 +1,5 @@
 import oci
+import json
 import creds
 
 config = oci.config.from_file()
@@ -10,7 +11,11 @@ base_compute.base_client.set_region(config["region"])
 # get instance list
 instance_list = base_compute.list_instances(creds.compartment_id).data
 
-print(instance_list)
+# shutdown_instances = []
+
+for instance in instance_list:
+    if instance.freeform_tags == {'TestServer' : 'Yes'}:
+        print(instance.id)
 
 # get instance_id of all instances with "Nightly/Weekend Shutdown" tag
 
