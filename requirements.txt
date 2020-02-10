@@ -1,0 +1,10 @@
+certifi==2019.11.28
+cffi==1.14.0
+configparser==4.0.2
+cryptography==2.8
+oci==2.10.3
+pycparser==2.19
+pyOpenSSL==19.1.0
+python-dateutil==2.8.1
+pytz==2019.3
+six==1.14.0
