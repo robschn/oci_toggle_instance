@@ -1,28 +1,33 @@
 import sys
 import oci
 
-# make sure user is providing instance action
-if len(sys.argv) < 2:
-    print("No instance action provided. Please add 'start' or 'stop' after the script.")
-    exit()
+def toggle_instance(state):
+   
+    # load config
+    config = oci.config.from_file()
+    # set compute resource
+    base_compute = oci.core.ComputeClient(config)
+    # get instance list
+    instance_list = base_compute.list_instances(config['compartment_id']).data
 
-config = oci.config.from_file()
+    for instance in instance_list:
+        # filter out any non Test Server types
+        try:
+            if instance.freeform_tags['Test'] == 'Shutdown':
+                # send command passed through
+                base_compute.instance_action(instance.id, state)
+                print(f'Sending {state.upper()} command to {instance.display_name}...')
+        except KeyError:
+            pass
 
-# set compute resource
-base_compute = oci.core.ComputeClient(config)
+def main():
 
-# get instance list
-instance_list = base_compute.list_instances(config['compartment_id']).data
+    if len(sys.argv) < 2:
+        instance_state = 'start'
+    else:
+        instance_state = sys.argv[1]
 
+    toggle_instance(instance_state)
 
-for instance in instance_list:
-    # filter out any non Test Server types
-    try:
-        if instance.freeform_tags['Test'] == 'Shutdown':
-
-            # send command passed through
-            base_compute.instance_action(instance.id, f'{sys.argv[1]}')
-            print(f'Sending {sys.argv[1]} command to {instance.display_name}...')
-
-    except KeyError:
-        pass
+if __name__ == "__main__":
+    main()
