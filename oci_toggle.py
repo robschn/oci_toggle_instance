@@ -1,4 +1,5 @@
 import sys
+import logging
 import oci
 
 
@@ -11,9 +12,14 @@ def toggle_instance(state, key, value):
         value: the value of the tag key that you want selected
 
     Returns:
-        print statement with the instances and their new set state
+        log file with the instance names and their new state
 
     """
+    logging.basicConfig(filename='instance_log.txt',
+                        filemode='a',
+                        datefmt='%H:%M:%S',
+                        level=logging.INFO)
+
     config = oci.config.from_file()
     base_compute = oci.core.ComputeClient(config)
 
@@ -22,8 +28,8 @@ def toggle_instance(state, key, value):
         try:
             if instance.freeform_tags[key] == value:
                 base_compute.instance_action(instance.id, state)
-                print(
-                    f'{instance.display_name.upper()} set to {state.upper()}')
+                logging.info(
+                    f' {instance.display_name.upper()} set to {state.upper()}')
         except KeyError:
             pass
 

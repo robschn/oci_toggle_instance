@@ -2,3 +2,4 @@ venv
 .vscode
 __pycache__/creds.cpython-38.pyc
 output.txt
+instance_log.txt
