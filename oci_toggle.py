@@ -23,7 +23,7 @@ def toggle_instance(state, key, value):
             if instance.freeform_tags[key] == value:
                 base_compute.instance_action(instance.id, state)
                 print(
-                    f'Instance {instance.display_name} set to {state}.')
+                    f'{instance.display_name.upper()} set to {state.upper()}')
         except KeyError:
             pass
 
